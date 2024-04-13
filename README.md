@@ -8,4 +8,4 @@ A simple todo list application for the CLI with the following options:
 - [ ] --version to print the version of the application
 
 ## Things to do
-- [ ] Ability to take in user input
+- [x] Ability to take in user input
