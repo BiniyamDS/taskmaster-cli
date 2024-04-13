@@ -4,9 +4,9 @@ A simple todo list application for the CLI with the following options:
 - [x] --list [all|pending|done] to list the todo items
 - [x] --done [id] to update a todo item
 - [x] --delete [id] to delete a todo item
-- [ ] --help to list all the available options
-- [ ] --version to print the version of the application
+- [x] --help to list all the available options
+- [x] --version to print the version of the application
 
 ## Things to do
 - [x] Ability to take in user input
-- [ ] Suboptions [all|pending|done] under --list
+- [x] Suboptions [all|pending|done] under --list

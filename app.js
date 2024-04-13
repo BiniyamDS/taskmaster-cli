@@ -17,6 +17,18 @@ async function main() {
   await pool.end();
 }
 
+// function for help screen
+function helpTodo() {
+  console.log(
+    "--new: add new todo\n",
+    "--list: lists all todos\n",
+    "--done [id]: marks a todo as done\n",
+    "--delete [id]: deletes a todo\n",
+    "--help: displays this help information\n",
+    "--version: displays the version number"
+  );
+}
+
 // function to create todo
 
 const createTodo = async (todo_text) => {
@@ -81,13 +93,24 @@ const updateTodo = async (id) => {
 };
 
 // function to list all todos
-const listTodos = async (all = true, done = false) => {
-  const base_text = `SELECT * from todos`;
-  const bool_text = `where done=${done}`;
-  const order = "order by id";
-  const text = `${all ? base_text : `${base_text} ${bool_text}`} ${order}`;
-  const { rows } = await pool.query(text);
-  formatTodos(rows);
+const listTodos = async (sub = "") => {
+  const sub_options = {
+    all: null,
+    pending: false,
+    done: true,
+  };
+
+	if (sub in sub_options) {
+    const filterBy = sub_options[sub];
+    const base_text = `SELECT * from todos`;
+    const bool_text = `where done=${filterBy}`;
+    const order = "order by id";
+    const text = `${filterBy === null ? base_text : `${base_text} ${bool_text}`} ${order}`;
+    const { rows } = await pool.query(text);
+    formatTodos(rows);
+  } else {
+    console.log("Please provide one of the options from [all|pending|done]");
+  }
 };
 
 // format the output array and print it to the console
@@ -102,8 +125,8 @@ const actions = {
   list: listTodos,
   done: updateTodo,
   delete: deleteTodo,
-  help: () => console.log("help not yet setup"),
-  version: () => console.log("version not yet setup"),
+  help: helpTodo,
+  version: () => console.log("Taskmaster 2024 v1.0.0"),
 };
 
 let command = process.argv[2];
