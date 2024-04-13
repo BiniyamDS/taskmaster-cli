@@ -10,15 +10,25 @@ const credentials = {
 };
 
 const { Client, Pool } = require("pg");
-async function poolDemo() {
-  const pool = new Pool(credentials);
-  const now = await pool.query("SELECT * from todos");
-//   awai
-  await pool.end();
+const pool = new Pool(credentials);
 
-  console.log(now.rows)
+async function poolDemo() {
+	await createTodo('yet another', true);
+  const now = await pool.query("SELECT * from todos");
+  await pool.end();
+  console.log(now.rows);
 }
 
+// function to create todo
 
+const createTodo = async (todo_text, done = false) => {
+  const text = `insert into todos (text, done) values ($1, $2)`;
+  const values = [todo_text, done];
+  const test = await pool.query(text, values);
+};
+
+// function to delete todo
+
+// function to update todo
 
 poolDemo();
