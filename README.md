@@ -9,3 +9,4 @@ A simple todo list application for the CLI with the following options:
 
 ## Things to do
 - [x] Ability to take in user input
+- [ ] Suboptions [all|pending|done] under --list
